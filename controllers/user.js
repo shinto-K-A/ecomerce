@@ -346,6 +346,7 @@ module.exports = {
     vieworderedproductGet:async(req,res)=>{
         
        await userHelpers.getOrderProducts(req.query.id).then((products)=>{
+        console.log(products,'uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu');
         res.render('user/view-ordered-product',{products})
 
        })
