@@ -208,6 +208,18 @@ module.exports = {
             })
 
         },
+        offerGet:(req,res)=>{
+            console.log('ggggggggggggggggggggggggggggggggggggg');
+            res.render('admin/view-ofer',{layout:'admin-layout'})
+        },
+    addcouponPost: (req, res) => {
+        adminHelper.addCoupon(req.body).then((response) => {
+            res.redirect('/admin/ofers')
+        })
+    }
+
+
+
         
      
     

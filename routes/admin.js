@@ -3,7 +3,7 @@ var router = express.Router();
 var productHelper=require('../helpers/product-helpers')
 const {home,postLogin,viewProduct,addproductGet,addproductPost,deleteproductGet,editproductGet,editproductPost,userView,blockuserGet,unblockuserGet,
     categoryGet,categoryPost,deletecategoryGet,editcategoryGet,editcategoryPost,stockGet,editstockGet
-    ,bannerGet,editstockPost,editbannerPost,editbannerGet,orderGet,cancellorderGet,shipedorderGet,deliverorderGet}=require('../controllers/admin')
+    ,bannerGet,editstockPost,editbannerPost,editbannerGet,orderGet,cancellorderGet,shipedorderGet,deliverorderGet,offerGet,addcouponPost}=require('../controllers/admin')
 
 
 /*GET login*/
@@ -58,6 +58,9 @@ router.get('/cancel-order',cancellorderGet)
 router.get('/shipped-order',shipedorderGet)
 /*GET deliver-order*/
 router.get('/deliver-order',deliverorderGet)
-/*GET dash*/
+/*GET offers*/
+router.get('/ofers',offerGet)
+/*POST addcoupon*/
+router.post('/addcoupon',addcouponPost)
 
 module.exports = router;
