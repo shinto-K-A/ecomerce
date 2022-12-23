@@ -128,6 +128,7 @@
 
 
 			</form>
+			
 
 
 
@@ -135,13 +136,21 @@
 
 
 
-
-
-
-
-
 			<!-- /Order Details -->
 		</div>
+		<hr><h5>Coupen Code</h5> 
+              <div class="form-group mt-3">
+                <label for="exampleInputEmail1">Code</label>
+                <input type="text" name="code" class="form-control bg-white text-black" id="couponInput"
+                  aria-describedby="emailHelp" placeholder="Code">
+				  <button  class="btn btn-primary mt-3" onclick="coupon()">Submit</button>
+
+              </div>
+
+
+             
+
+              
 		<!-- /row -->
 	</div>
 	<!-- /container -->
@@ -231,6 +240,27 @@
 			document.getElementById('postt').value = postofice;
 			document.getElementById('pinn').value = pincod;
 		}
+		 function coupon(){
+          let couponName=document.getElementById('couponInput').value
+          console.log(couponName)
+          $.ajax({
+          url:'/coupon-verify',
+          data:{
+            coupon:couponName
+          },
+          method:'post',
+          success:(response)=>{
+            if(response.couponVerified){
+              console.log("Coupon success")
+              location.reload()
+            }else{
+              console.log("Coupon failed")
+              location.reload()
+            }
+            
+          }
+        })
+      }
 	</script>
 
 	<!-- /NEWSLETTER -->

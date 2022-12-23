@@ -380,7 +380,48 @@ module.exports = {
             res.render('user/viewCoupons',{coupen})
         })
     
-    }
+    },
+    coupenPost:async(req,res)=>{
+        
+            let user= req.session.user._id
+        
+        
+           
+            const date = new Date()
+        
+            let totalAmount = await userhelpers.getTotalAmount(user)
+        
+        
+        
+        
+        
+        
+        let Total = totalAmount
+        
+            
+        
+            if (req.body.coupon == '') {
+                res.json({ noCoupon: true,Total })
+            } else {
+                let couponResponse = await adminhelper. applyCoupon(req.body, user, date,totalAmount)
+                if (couponResponse.verify) {
+                    let discountAmount = (totalAmount * parseInt(couponResponse.couponData.value)) / 100
+                    if(discountAmount>parseInt(couponResponse.couponData.maxAmount))
+                    discountAmount=parseInt(couponResponse.couponData.maxAmount)
+                    let amount = totalAmount - discountAmount
+                    couponResponse.discountAmount = Math.round(discountAmount)
+                    couponResponse.amount = Math.round(amount)
+                    res.json(couponResponse)
+                } else {
+                    couponResponse.Total = totalAmount
+        
+                    
+                    res.json(couponResponse)
+                }
+            }
+        }
+        
+    
 
 
 

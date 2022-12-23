@@ -111,14 +111,18 @@
       
       
       </div> --}}
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+        <button class="btn btn-primary" onclick="generatePDF()">PDF</button>
+      
     <div class="bg-secondary text-center rounded p-4">
       <div class="d-flex align-items-center justify-content-between mb-4">
         
         <h6 class="mb-0">Recent Salse</h6>
         <a href="">Show All</a>
       </div>
-      <div class="table-responsive">
-        <table class="table text-start align-middle table-bordered table-hover mb-0"  id="tableSalesReport" >
+      <div class="table-responsive" id="tableSalesReport">
+        
+        <table class="table text-start align-middle table-bordered table-hover mb-0"   >
           <thead>
             <tr class="text-white">
                <th scope="col">No</th>
@@ -228,6 +232,21 @@ const ct = document.getElementById('MYCHART');
       }
     }
   });
+function generatePDF() {
+        const element = document.getElementById('tableSalesReport');
+		element.style.width = '700px';
+		element.style.height = '900px';
+		let opt = {
+			margin: 10,
+			filename: 'ecomerce.pdf',
+			image:{type:'jpeg',quality:0.98},
+			html2canvas :{scale:1},
+			jsPDF:{unit:'mm',orientation:'landscape'}
+		}
+        html2pdf().set(opt)
+            .from(element)
+            .save();
+           }
 
 
 </script>
