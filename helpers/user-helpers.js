@@ -23,6 +23,7 @@ module.exports = {
 
             } else {
                 userData.password = await bcrypt.hash(userData.password, 10)
+                userData.blocked=false
                 db.get().collection(collection.USER_COLLECTION).insertOne(userData).then((response) => {
                     resolve({ status: true })
                 })
@@ -569,6 +570,14 @@ addAddress:(Address,userId)=>{
         }
     })
 },
+    viewCoupens: () => {
+        return new Promise(async (resolve, reject) => {
+            let coupen = await db.get().collection(collection.COUPEN_COLLECTION).find().toArray()
+            resolve(coupen)
+           
+    })
+
+    }
 
  
 }

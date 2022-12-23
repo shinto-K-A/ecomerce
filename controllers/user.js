@@ -374,6 +374,13 @@ module.exports = {
             })
         }
     },
+    offerGet:(req,res)=>{
+        userHelpers.viewCoupens().then((coupen) => {
+            console.log(coupen,'jjjjjjjjjjjjjjjjjjjjjjjjj');
+            res.render('user/viewCoupons',{coupen})
+        })
+    
+    }
 
 
 
