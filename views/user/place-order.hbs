@@ -94,7 +94,7 @@
 
 					<div class="order-col">
 						<div><strong>TOTAL</strong></div>
-						<div><strong class="order-total">${{total}}</strong></div>
+						<div><strong class="order-total" id="totalAmount">${{total}}</strong></div>
 					</div>
 				</div>
 				<div class="payment-method">
@@ -143,7 +143,7 @@
                 <label for="exampleInputEmail1">Code</label>
                 <input type="text" name="code" class="form-control bg-white text-black" id="couponInput"
                   aria-describedby="emailHelp" placeholder="Code">
-				  <button  class="btn btn-primary mt-3" onclick="coupon()">Submit</button>
+				  <button  class="btn btn-primary mt-3" onclick="coupon()">Apply</button>
 
               </div>
 
@@ -233,7 +233,7 @@
 
 		}
 		function fillall(plac, cty, housenme, postofice, pincod,) {
-			console.log('hhhhhhhhhhhhhkkkkkkkkkk')
+			
 			document.getElementById('plac').value = plac;
 			document.getElementById('cityy').value = cty;
 			document.getElementById('housee').value = housenme;
@@ -242,7 +242,7 @@
 		}
 		 function coupon(){
           let couponName=document.getElementById('couponInput').value
-          console.log(couponName)
+          console.log(couponName,'fffffffffffffffffggggggggggggg')
           $.ajax({
           url:'/coupon-verify',
           data:{
@@ -250,12 +250,14 @@
           },
           method:'post',
           success:(response)=>{
-            if(response.couponVerified){
-              console.log("Coupon success")
-              location.reload()
+            if(response.verify){
+		  document.getElementById('totalAmount').innerHTML=response.amount
+		  console.log(response.amount,'lllllllllllllllllllllllllllllllllll')
+              console.log("Coupon successaaaaaaaaaaaaaaaaaaaaaaaaaa")
+              //location.reload()
             }else{
-              console.log("Coupon failed")
-              location.reload()
+              console.log("Coupon failedddddddddddddddddddd")
+              //location.reload()
             }
             
           }

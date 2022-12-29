@@ -91,7 +91,7 @@ router.get('/add-to-wishlist',addToWishList)
 /*GET offers*/
 router.get('/offers',offerGet)
 /*POST applycoupon*/
-router.post('/applycoupon',coupenPost)
+router.post('/coupon-verify',coupenPost)
 
 
 module.exports = router;

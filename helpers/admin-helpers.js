@@ -251,23 +251,25 @@ module.exports = {
     },
     addCoupon: (couponDetails) => {
         return new Promise(async (resolve, reject) => {
-          let response = {}
-          let couponExist = await db.get().collection(collection.COUPEN_COLLECTION).findOne({ code: couponDetails.code })
-    
-          if (couponExist) {
-            response.status = true
-            response.message = "Coupon With this Code Already Exist"
-            resolve(response)
-          } else {
-            await db.get().collection(collection.COUPEN_COLLECTION).insertOne({ name: couponDetails.name, code: couponDetails.code, endingdate: couponDetails.endingdate, value: couponDetails.value, minAmount: couponDetails.minAmount, maxAmount: couponDetails.maxAmount, status: true }).then((response) => {
-              response.message = 'Coupon Added successfully'
-              response.status = false
-              resolve(response)
-            })
-          }
-    
-        })
-      },
+            let response = {}
+            let couponExist = await db.get().collection(collection.COUPEN_COLLECTION).findOne({ code: couponDetails.code })
+
+            if (couponExist) {
+                response.status = true
+                response.message = "Coupon With this Code Already Exist"
+                resolve(response)
+            } else {
+                await db.get().collection(collection.COUPEN_COLLECTION).insertOne({ name: couponDetails.name, code: couponDetails.code, endingdate: couponDetails.endingdate, value: couponDetails.value, minAmount: couponDetails.minAmount, maxAmount: couponDetails.maxAmount, status: true }).then((response) => {
+                    response.message = 'Coupon Added successfully'
+                    response.status = false
+                    resolve(response)
+                })
+            }
+
+        })
+    },
+   
+
 
 
 

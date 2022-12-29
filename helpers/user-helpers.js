@@ -577,7 +577,89 @@ addAddress:(Address,userId)=>{
            
     })
 
-    }
+    },
+    applyCoupon: (details, userId, date, totalAmount) => {
+        return new Promise(async (resolve, reject) => {
+            let response = {}
+            let coupon = await db.get().collection(collection.COUPEN_COLLECTION).findOne({ code: details.coupon, status: true })
+            console.log(coupon, 'couponpre');
+
+            if (coupon) {
+                const expDate = new Date(coupon.endingdate)
+                response.couponData = coupon
+                let user = await db.get().collection(collection.COUPEN_COLLECTION).findOne({ code: details.coupon, Users: objectId(userId) })
+                if (user) {
+                    response.used = "Coupon Already Used"
+                    resolve(response)
+                } else {
+
+                    if (date <= expDate) {
+
+                        response.dateValid = true
+
+                        resolve(response)
+                        let total = totalAmount
+                        console.log(total, 'total');
+                        console.log(coupon.minAmount, 'kkkkmin');
+                        console.log(coupon.maxAmount, 'kkkkkmax');
+
+                        if (total >= coupon.minAmount) {
+                            console.log('amount heloooo');
+                            response.verifyminAmount = true
+
+                            resolve(response)
+
+                            if (total <= coupon.maxAmount) {
+                                console.log('amountmax heloooo');
+                                response.verifymaxAmount = true
+
+                                resolve(response)
+                            } else {
+                                response.verifyminAmount = true
+                                response.verifymaxAmount = true
+                                resolve(response)
+                            }
+
+                        } else {
+                            response.minAmountMsg = 'Your minimum purchase should be' + coupon.minAmount
+                            response.minAmount = true
+                            resolve(response)
+                        }
+
+
+
+
+                    } else {
+                        response.invalidDateMsg = 'Coupon Expired'
+                        response.invalidDate = true
+                        response.Coupenused = false
+
+                        resolve(response)
+                        console.log('invalid date');
+                    }
+
+
+                }
+            } else {
+                response.invalidCoupon = true
+                response.invalidCouponMsg = ' Invalid Coupon '
+                resolve(response)
+            }
+
+            if (response.dateValid && response.verifymaxAmount && response.verifyminAmount) {
+                response.verify = true
+
+                db.get().collection(collection.CART_COLLECTION).updateOne({ user: objectId(userId) }, {
+
+                    $set: {
+                        coupon: objectId(coupon._id)
+                    }
+                })
+
+                resolve(response)
+            }
+        })
+    },
 
  
 }

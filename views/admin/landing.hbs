@@ -120,19 +120,20 @@
         <h6 class="mb-0">Recent Salse</h6>
         <a href="">Show All</a>
       </div>
-      <div class="table-responsive" id="tableSalesReport">
+      <div class="table-responsive" id="tableSalesReport"  >
         
-        <table class="table text-start align-middle table-bordered table-hover mb-0"   >
+        <table class="table text-start align-middle table-bordered table-hover mb-0"  >
           <thead>
-            <tr class="text-white">
-               <th scope="col">No</th>
+            <tr class="text-start">
+               <th scope="col" >No</th>
               <th scope="col">Date</th>
               <th scope="col">Total Amount</th>
               <th scope="col">Count</th>
             </tr>
           </thead>
+          {{#each monthly}}
           <tbody>
-            {{#each monthly}}
+            
             <tr>
               
               <td>{{math @index '+'1}}</td>
@@ -140,9 +141,10 @@
               <td>{{this.totalAmount}}</td>
               <td>{{this.count}}</td>
             </tr>
-            {{/each}}
+           
            
           </tbody>
+           {{/each}}
         </table>
       </div>
     </div>
@@ -234,7 +236,7 @@ const ct = document.getElementById('MYCHART');
   });
 function generatePDF() {
         const element = document.getElementById('tableSalesReport');
-		element.style.width = '700px';
+		element.style.width = '900px';
 		element.style.height = '900px';
 		let opt = {
 			margin: 10,
