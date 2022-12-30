@@ -16,7 +16,8 @@
 				<div class="product">
 					<div class="product-img">
 						<a href="/singleproduct?id={{this._id}}">
-							<img src="/product-images/{{this._id}}.jpg" alt="" style="height: 250px;width:250px">
+							<img src="/product-images/{{this._id}}.jpg" alt=""
+								style="height: 250px;width:250px">
 							<div class="product-label">
 								<span class="sale">-{{this.percentage}}%</span>
 							</div>
@@ -30,16 +31,20 @@
 						<div class="product-rating">
 						</div>
 						<div class="product-btns">
-							<button class="add-to-wishlist" onclick="addToWishlist('{{this._id}}')"><i class="fa fa-heart-o"></i><span class="tooltipp">add to
+							<button class="add-to-wishlist" onclick="addToWish('{{this._id}}')"><i
+									class="fa fa-heart-o"></i><span class="tooltipp">add to
 									wishlist</span></button>
-							<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to
+							<button class="add-to-compare"><i class="fa fa-exchange"></i><span
+									class="tooltipp">add to
 									compare</span></button>
-							<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick
+							<button class="quick-view"><i class="fa fa-eye"></i><span
+									class="tooltipp">quick
 									view</span></button>
 						</div>
 					</div>
 					<div class="add-to-cart">
-						<button class="add-to-cart-btn" onclick="addToCart('{{this._id}}')"><i class="fa fa-shopping-cart"></i> add to cart</button>
+						<button class="add-to-cart-btn" onclick="addToCart('{{this._id}}')"><i
+								class="fa fa-shopping-cart"></i> add to cart</button>
 					</div>
 				</div>
 			</div>
@@ -51,57 +56,53 @@
 </div>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-		function addToCart(proId) {
+	function addToCart(proId) {
 
+		$.ajax({
+			url: '/add-to-cart/' + proId,
+			method: 'get',
+			success: (response) => {
+				let count = $('#cart-count').html()
+				count = parseInt(count) + 1
+				$('#cart-count').html(count)
+
+
+			}
+		})
+
+	};
+	function addToWish(proId) {
+			console.log('hi ajax wish');
 			$.ajax({
-				url: '/add-to-cart/' + proId,
+
+				url: '/add-to-wish/' + proId,
 				method: 'get',
 				success: (response) => {
-					let count=$('#cart-count').html()
-					count=parseInt(count)+1
-					$('#cart-count').html(count)
+					if (response.status) {
+						let count = $('#wish-count').html()
+						count = parseInt(count) + 1
+						$("#wish-count").html(count)
+					}
 
+					swal("product added to wishlist", "", "success");
+				}
+			})
+		}
+		function deleteFromWish(cartId, proId) {
+			$.ajax({
+				url: '/deleteFromWish',
+				data: {
+					cart: cartId,
+					product: proId
+				},
+				method: 'post',
+				success: (response) => {
+
+					alert("Product Removed ")
+
+					location.reload()
 
 				}
 			})
-
-		};
-		function addToWishList(proId) {
-        $.ajax({
-            url: '/add-to-wishlist/' + proId,
-            method: 'get',
-            success: (response) => {
-                if (response.status) {
-                    let count = $('#wishList-count').html()
-                    console.log("old count", count)
-                    count = parseInt(count) + 1
-                    console.log("added count", count)
-                    $('#wishList-count').html(count)
-                    Swal.fire({
-                        position: 'top-end',
-                        width: 300,
-                        height: 100,
-                        text: "Item Added Wish List",
-                        showConfirmButton: false,
-                        timer: 1500
-                    })
-                } else {
-                    Swal.fire({
-                        title: 'Please Login ',
-                        text: "Please Login to Add this Item Wish List",
-                        icon: 'info',
-                        showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: 'Continue with Login'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            location.href = '/viewAllVerify'
-                        }
-                    })
-                }
-
-            }
-        })
-    }
-	</script>
+		}
+</script>

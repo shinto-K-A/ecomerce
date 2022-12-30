@@ -198,7 +198,15 @@ module.exports = {
     },
     placeorderPost: async (req, res) => {
         let products = await userHelpers.getCartProductList(req.body.userId)
-        let totalPrice = await userHelpers.getTotalAmount(req.body.userId)
+        if(req.session.amount){
+            var totalPrice=req.session.amount
+
+        }
+        else{
+            var totalPrice = await userHelpers.getTotalAmount(req.body.userId)
+
+        }
+        
         userHelpers.placeOrder(req.body, products, totalPrice).then((orderId) => {
             if (req.body['paymentMethod'] == 'COD') {
                 res.json({ codSuccess: true })
@@ -406,12 +414,13 @@ module.exports = {
                 let amount = totalAmount - discountAmount
                 couponResponse.discountAmount = Math.round(discountAmount)
                 couponResponse.amount = Math.round(amount)
+                req.session.amount=Math.round(amount)
                 res.json(couponResponse)
             } else {
                 couponResponse.Total = totalAmount
 
 
-                res.json(couponResponse)
+                res.json({error:true})
             }
         }
     }

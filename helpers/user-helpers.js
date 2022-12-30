@@ -621,7 +621,7 @@ addAddress:(Address,userId)=>{
                             }
 
                         } else {
-                            response.minAmountMsg = 'Your minimum purchase should be' + coupon.minAmount
+                            response.minAmountMsg = 'Your minimum purchase should be:' + coupon.minAmount
                             response.minAmount = true
                             resolve(response)
                         }

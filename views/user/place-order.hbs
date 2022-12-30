@@ -143,6 +143,7 @@
                 <label for="exampleInputEmail1">Code</label>
                 <input type="text" name="code" class="form-control bg-white text-black" id="couponInput"
                   aria-describedby="emailHelp" placeholder="Code">
+			<div><span  id="errorMsg" style="color: red;"></span></div>
 				  <button  class="btn btn-primary mt-3" onclick="coupon()">Apply</button>
 
               </div>
@@ -252,10 +253,14 @@
           success:(response)=>{
             if(response.verify){
 		  document.getElementById('totalAmount').innerHTML=response.amount
-		  console.log(response.amount,'lllllllllllllllllllllllllllllllllll')
+		 
               console.log("Coupon successaaaaaaaaaaaaaaaaaaaaaaaaaa")
               //location.reload()
             }else{
+			document.getElementById('errorMsg').innerHTML=response.minAmountMsg
+			document.getElementById('errorMsg').innerHTML=response.invalidDateMsg
+			document.getElementById('errorMsg').innerHTML=response.invalidCouponMsg
+			
               console.log("Coupon failedddddddddddddddddddd")
               //location.reload()
             }
