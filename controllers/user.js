@@ -10,42 +10,51 @@ module.exports = {
         )
         logIn = req.session.user
         let cartCount = null
+        let wishCount = null
         if (logIn) {
             cartCount = await userHelpers.getCartCount(req.session.user._id)
+            wishCount = await userHelpers.getWishCount(req.session.user._id)
         }
+        
         let banner = await productHelpers.getAllBanner()
 
-        res.render('user/index', { logIn, cartCount, banner });
+        res.render('user/index', { logIn, cartCount,wishCount,banner});
     },
     viewLaptop: async (req, res) => {
         logIn = req.session.user
         let cartCount = null
+        let wishCount = null
         if (logIn) {
             cartCount = await userHelpers.getCartCount(req.session.user._id)
+            wishCount = await userHelpers.getWishCount(req.session.user._id)
         }
         productHelpers.getLaptops().then((products) => {
-            res.render('user/view-lap', { products, logIn, cartCount })
+            res.render('user/view-lap', { products, logIn, cartCount,wishCount })
         })
     },
     viewAcessory: async (req, res) => {
         let cartCount = null
+        let wishCount = null
         if (logIn) {
             cartCount = await userHelpers.getCartCount(req.session.user._id)
+            wishCount = await userHelpers.getWishCount(req.session.user._id)
         }
         logIn = req.session.user
         productHelpers.getAcesory().then((products) => {
-            res.render('user/view-accesory', { products, logIn, cartCount })
+            res.render('user/view-accesory', { products, logIn, cartCount,wishCount })
         })
 
     },
     viewCamera: async (req, res) => {
         logIn = req.session.user
         let cartCount = null
+        let wishCount = null
         if (logIn) {
             cartCount = await userHelpers.getCartCount(req.session.user._id)
+            wishCount = await userHelpers.getWishCount(req.session.user._id)
         }
         productHelpers.getCamera().then((products) => {
-            res.render('user/view-accesory', { products, logIn, cartCount })
+            res.render('user/view-accesory', { products, logIn, cartCount,wishCount })
         })
 
 
@@ -105,11 +114,13 @@ module.exports = {
         logIn = req.session.user
         //let products=await userHelpers.getCartProducts(req.session.user._id)
         let cartCount = null
+        let wishCount = null
         if (logIn) {
             cartCount = await userHelpers.getCartCount(req.session.user._id)
+            wishCount = await userHelpers.getWishCount(req.session.user._id)
         }
         productHelpers.getOneproduct(req.query.id).then((response) => {
-            res.render('user/single-product', { response, logIn, cartCount })
+            res.render('user/single-product', { response, logIn, cartCount,wishCount })
 
 
         })
@@ -168,11 +179,13 @@ module.exports = {
         let products = await userHelpers.getCartProducts(req.session.user._id)
         let totalValue = await userHelpers.getTotalAmount(req.session.user._id)
         let cartCount = null
+        let wishCount = null
         if (logIn) {
             cartCount = await userHelpers.getCartCount(req.session.user._id)
+            wishCount = await userHelpers.getWishCount(req.session.user._id)
         }
         console.log(products);
-        res.render('user/my-cart', { products, logIn, cartCount, totalValue, user: req.session.user._id })
+        res.render('user/my-cart', { products, logIn, cartCount, totalValue, user: req.session.user._id,wishCount })
     },
     changequantityPost: (req, res, next) => {
         userHelpers.changeProductQuantity(req.body).then(async (response) => {
@@ -192,9 +205,10 @@ module.exports = {
         cartCount = await userHelpers.getCartCount(req.session.user._id)
         adress = await userHelpers.AllAddress(req.session.user._id)
         //console.log(adress,'kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk');
+        wishCount = await userHelpers.getWishCount(req.session.user._id)
 
         let total = await userHelpers.getTotalAmount(req.session.user._id)
-        res.render('user/place-order', { total, user: req.session.user, logIn, cartCount, adress })
+        res.render('user/place-order', { total, user: req.session.user, logIn, cartCount, adress,wishCount })
     },
     placeorderPost: async (req, res) => {
         let products = await userHelpers.getCartProductList(req.body.userId)
@@ -262,8 +276,9 @@ module.exports = {
     successGet: async (req, res) => {
         logIn = await req.session.user
         cartCount = await userHelpers.getCartCount(req.session.user._id)
+        wishCount = await userHelpers.getWishCount(req.session.user._id)
 
-        res.render('user/success', { logIn, cartCount })
+        res.render('user/success', { logIn, cartCount,wishCount })
     },
     forgotpasswordGet: (req, res) => {
         res.render('user/forgot-password', { layout: null })
@@ -307,7 +322,8 @@ module.exports = {
         logIn = req.session.user
         cartCount = await userHelpers.getCartCount(req.session.user._id)
         adress = await userHelpers.AllAddress(req.session.user._id)
-        res.render('user/profile', { logIn, cartCount, adress })
+        wishCount = await userHelpers.getWishCount(req.session.user._id)
+        res.render('user/profile', { logIn, cartCount, adress,wishCount })
     },
     profilePost: (req, res) => {
         user = req.session.user
@@ -325,12 +341,14 @@ module.exports = {
         logIn = req.session.user
         cartCount = await userHelpers.getCartCount(req.session.user._id)
         let orders = await productHelpers.getmyOrders(req.session.user._id)
-        res.render('user/my-order', { orders, logIn, cartCount })
+        wishCount = await userHelpers.getWishCount(req.session.user._id)
+        res.render('user/my-order', { orders, logIn, cartCount,wishCount })
     },
     resetGet: async (req, res) => {
         logIn = await req.session.user
         cartCount = await userHelpers.getCartCount(req.session.user._id)
-        res.render('user/old-password', { logIn, cartCount })
+        wishCount = await userHelpers.getWishCount(req.session.user._id)
+        res.render('user/old-password', { logIn, cartCount,wishCount })
     },
     checkoldpasswordPost: (req, res) => {
         userHelpers.checkOldPassword(req.body, req.session.user).then((response) => {
@@ -373,15 +391,7 @@ module.exports = {
         })
 
     },
-    addToWishList: async (req, res, next) => {
-        if (req.session.user == null) {
-            res.json({ status: false })
-        } else {
-            userHelpers.addToWishList(req.params.id, req.session.user._id).then(async () => {
-                res.json({ status: true })
-            })
-        }
-    },
+    
     offerGet: (req, res) => {
         userHelpers.viewCoupens().then((coupen) => {
             console.log(coupen, 'jjjjjjjjjjjjjjjjjjjjjjjjj');
@@ -423,7 +433,38 @@ module.exports = {
                 res.json({error:true})
             }
         }
-    }
+    },
+    addToWish: (req, res) => {
+
+        console.log("hi wishhhhhhhhhhhhhhhhhhhhhhhhh");
+        let id = req.params.id
+        console.log(id, 'sdk;fms;dkf');
+        userHelpers.addTowish(req.params.id, req.session.user._id).then(() => {
+          res.json({ status: true })
+      
+      
+        })
+      },
+      mywishGet:async(req,res)=>{
+        logIn = req.session.user
+        let wishCount = null
+        let cartCount = null
+        if (logIn) {
+            cartCount = await userHelpers.getCartCount(req.session.user._id)
+            wishCount = await userHelpers.getWishCount(req.session.user._id)
+        }
+        let products = await userHelpers.getWishProducts(req.session.user._id)
+        let total = await userHelpers.getTotalWishAmount(req.session.user._id)
+        res.render('user/wishlist',{products,total,cartCount,wishCount,logIn})
+      },
+      DeleteProductWish: (req, res, next) => {
+        console.log('inside jss');
+          userHelpers.delFromWish(req.body).then((response) => {
+            res.json({ response })
+          })
+        },
+      
+      
 
 
 

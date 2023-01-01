@@ -7,7 +7,7 @@ const {homePage,viewLaptop,loginGet,loginPost,signUp,signupPost,logout,viewAcess
     mycartGet,changequantityPost,removeitemPost,placeorderGet,placeorderPost,successGet,
     forgotpasswordGet,forgotpasswordPost,
     verifypaymentPost,changepasswordPost,profileGet,profilePost,removeadressPost,myorderGet,resetGet,checkoldpasswordPost,
-    resetPost,vieworderedproductGet,cancellorderedproductGet,returnorderedproductGet,addToWishList,offerGet,coupenPost}=require('../controllers/user')
+    resetPost,vieworderedproductGet,cancellorderedproductGet,returnorderedproductGet,offerGet,coupenPost,addToWish,mywishGet,DeleteProductWish}=require('../controllers/user')
     var paypal = require('paypal-rest-sdk');
 paypal.configure({
         'mode': 'sandbox', //sandbox or live 
@@ -86,12 +86,17 @@ router.get('/view-order-products',vieworderedproductGet)
 router.get('/cancel-order-products',cancellorderedproductGet)
 /*GET return-order-products*/
 router.get('/return-order-products',returnorderedproductGet)
-/*GET add-to-wishlist*/
-router.get('/add-to-wishlist',addToWishList)
 /*GET offers*/
 router.get('/offers',offerGet)
 /*POST applycoupon*/
 router.post('/coupon-verify',coupenPost)
+/*GET wislist*/
+router.get('/add-to-wishlist/:id',addToWish)
+/*GET my-wish*/
+router.get('/my-wish',mywishGet)
+/*POST deleteFromWish*/
+router.post('/deleteFromWish', DeleteProductWish)
+
 
 
 module.exports = router;

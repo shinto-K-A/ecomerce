@@ -30,7 +30,7 @@
 						<div class="product-rating">
 						</div>
 						<div class="product-btns">
-							<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to
+							<button class="add-to-wishlist" onclick="wishlist('{{this._id}}')"><i class="fa fa-heart-o"></i><span class="tooltipp">add to
 									wishlist</span></button>
 							<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to
 									compare</span></button>
@@ -58,6 +58,21 @@
 					let count=$('#cart-count').html()
 					count=parseInt(count)+1
 					$('#cart-count').html(count)
+
+
+				}
+			})
+
+		}
+		function wishlist(proId) {
+
+			$.ajax({
+				url: '/add-to-wishlist/' + proId,
+				method: 'get',
+				success: (response) => {
+					let count=$('#wish-count').html()
+					count=parseInt(count)+1
+					$('#wish-count').html(count)
 
 
 				}

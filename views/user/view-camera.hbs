@@ -31,7 +31,7 @@
 						<div class="product-rating">
 						</div>
 						<div class="product-btns">
-							<button class="add-to-wishlist" onclick="addToWish('{{this._id}}')"><i
+							<button class="add-to-wishlist" onclick="wishlist('{{this._id}}')"><i
 									class="fa fa-heart-o"></i><span class="tooltipp">add to
 									wishlist</span></button>
 							<button class="add-to-compare"><i class="fa fa-exchange"></i><span
@@ -71,22 +71,20 @@
 		})
 
 	};
-	function addToWish(proId) {
-			console.log('hi ajax wish');
-			$.ajax({
+	function wishlist(proId) {
 
-				url: '/add-to-wish/' + proId,
+			$.ajax({
+				url: '/add-to-wishlist/' + proId,
 				method: 'get',
 				success: (response) => {
-					if (response.status) {
-						let count = $('#wish-count').html()
-						count = parseInt(count) + 1
-						$("#wish-count").html(count)
-					}
+					let count=$('#wish-count').html()
+					count=parseInt(count)+1
+					$('#wish-count').html(count)
 
-					swal("product added to wishlist", "", "success");
+
 				}
 			})
+
 		}
 		function deleteFromWish(cartId, proId) {
 			$.ajax({
