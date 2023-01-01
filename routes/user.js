@@ -95,6 +95,7 @@ router.get('/add-to-wishlist/:id',addToWish)
 /*GET my-wish*/
 router.get('/my-wish',mywishGet)
 /*POST deleteFromWish*/
+/*post*/
 router.post('/deleteFromWish', DeleteProductWish)
 
 
