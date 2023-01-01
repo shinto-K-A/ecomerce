@@ -22,8 +22,8 @@ module.exports = {
     },
     viewLaptop: async (req, res) => {
         logIn = req.session.user
-        let cartCount = null
-        let wishCount = null
+        // let cartCount = null
+        // let wishCount = null
         if (logIn) {
             cartCount = await userHelpers.getCartCount(req.session.user._id)
             wishCount = await userHelpers.getWishCount(req.session.user._id)
@@ -33,8 +33,8 @@ module.exports = {
         })
     },
     viewAcessory: async (req, res) => {
-        let cartCount = null
-        let wishCount = null
+        // let cartCount = null
+        // let wishCount = null
         if (logIn) {
             cartCount = await userHelpers.getCartCount(req.session.user._id)
             wishCount = await userHelpers.getWishCount(req.session.user._id)
@@ -47,8 +47,8 @@ module.exports = {
     },
     viewCamera: async (req, res) => {
         logIn = req.session.user
-        let cartCount = null
-        let wishCount = null
+        // let cartCount = null
+        // let wishCount = null
         if (logIn) {
             cartCount = await userHelpers.getCartCount(req.session.user._id)
             wishCount = await userHelpers.getWishCount(req.session.user._id)
@@ -113,8 +113,8 @@ module.exports = {
     singleproductGet: async (req, res) => {
         logIn = req.session.user
         //let products=await userHelpers.getCartProducts(req.session.user._id)
-        let cartCount = null
-        let wishCount = null
+        // let cartCount = null
+        // let wishCount = null
         if (logIn) {
             cartCount = await userHelpers.getCartCount(req.session.user._id)
             wishCount = await userHelpers.getWishCount(req.session.user._id)
@@ -178,8 +178,8 @@ module.exports = {
         logIn = req.session.user
         let products = await userHelpers.getCartProducts(req.session.user._id)
         let totalValue = await userHelpers.getTotalAmount(req.session.user._id)
-        let cartCount = null
-        let wishCount = null
+        // let cartCount = null
+        // let wishCount = null
         if (logIn) {
             cartCount = await userHelpers.getCartCount(req.session.user._id)
             wishCount = await userHelpers.getWishCount(req.session.user._id)
@@ -447,8 +447,8 @@ module.exports = {
       },
       mywishGet:async(req,res)=>{
         logIn = req.session.user
-        let wishCount = null
-        let cartCount = null
+        // let wishCount = null
+        // let cartCount = null
         if (logIn) {
             cartCount = await userHelpers.getCartCount(req.session.user._id)
             wishCount = await userHelpers.getWishCount(req.session.user._id)
