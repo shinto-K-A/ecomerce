@@ -71,15 +71,24 @@
 							</a>
 						</div>
 						<!-- /Wishlist -->
-						<div>
-
-							<a href="#" data-toggle="modal" data-target="#exampleModal">
-								<a href="/profile">
-									<i class="fa fa-user-circle-o"></i>
-									<span>Profile</span>
+						<div class="dropdown">
+							<a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+								{{#if logIn}}
+								<a href="/my-wish">
+									<i class="fa fa-shopping-cart"></i>
+									<span>Wishlist</span>
+									<div class="qty" id="cart-count">{{cartCount}}</div>
 								</a>
-								{{!-- <div class="qty">2</div> --}}
+								{{else}}
+								<a href="/login">
+									<i class="fa fa-shopping-cart"></i>
+									<span>Wishlist</span>
+									<div class="qty">0</div>
+								</a>
+								{{/if}}
+								
 							</a>
+
 						</div>
 
 
