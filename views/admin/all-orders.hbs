@@ -31,7 +31,7 @@
 								<td>{{this.status}}</td>
 								<td><a class="btn btn-info" href="/view-order-products?id={{this._id}}">View</a></td>
                                 {{#isEqual this.status 'placed'}}
-								<td><a href="/admin/cancel-order?id={{../this._id}}" class="btn btn-danger">Cancel</a>
+								<td><a href="/admin/cancel-order?id={{../this._id}}" class="btn btn-danger" onclick="return confirm ('Are you sure to cancel?')">Cancel</a>
 								<a href="/admin/shipped-order?id={{../this._id}}" class="btn btn-info">Shipped</a>							
 								</td>
 								
@@ -40,7 +40,7 @@
 								<td><h6>CANCELLED</h6></td>
                                 {{/isEqual}}
 								{{#isEqual this.status 'shipped'}}
-								<td><a href="/admin/cancel-order?id={{../this._id}}" class="btn btn-danger">Cancel</a>
+								<td><a href="/admin/cancel-order?id={{../this._id}}" class="btn btn-danger" onclick="return confirm ('Are you sure to cancel?')">Cancel</a>
 								<a href="/admin/deliver-order?id={{../this._id}}" class="btn btn-info">Delivered</a></td>
 								 {{/isEqual}}
 								 {{#isEqual this.status 'delivered'}}

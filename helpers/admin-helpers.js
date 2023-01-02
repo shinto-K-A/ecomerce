@@ -268,6 +268,14 @@ module.exports = {
 
         })
     },
+    viewCoupens: () => {
+        return new Promise(async (resolve, reject) => {
+            let coupen = await db.get().collection(collection.COUPEN_COLLECTION).find().toArray()
+            resolve(coupen)
+
+        })
+
+    },
    
 
 

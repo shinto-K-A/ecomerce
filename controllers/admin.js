@@ -209,12 +209,21 @@ module.exports = {
 
         },
         offerGet:(req,res)=>{
-            console.log('ggggggggggggggggggggggggggggggggggggg');
-            res.render('admin/view-ofer',{layout:'admin-layout'})
+            adminHelper.viewCoupens().then((coupen) => {
+                console.log(coupen,'jjjjjjjjjjjjjjjjjjjjj');
+                res.render('admin/view-ofer',{layout:'admin-layout',coupen,oferEror:req.session.Eror})
+                req.session.Eror=null
+            })
+            
         },
     addcouponPost: (req, res) => {
-        adminHelper.addCoupon(req.body).then((response) => {
-            res.redirect('/admin/ofers')
+        adminHelper.
+        addCoupon(req.body).then((response) => {
+            if (response.message){
+                req.session.Eror=response.message
+            }
+            
+           res.redirect('/admin/ofers')
         })
     }
 

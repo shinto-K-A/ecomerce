@@ -25,6 +25,7 @@ module.exports = {
             } else {
                 userData.password = await bcrypt.hash(userData.password, 10)
                 userData.blocked = false
+                userData.wallet = 0
                 db.get().collection(collection.USER_COLLECTION).insertOne(userData).then((response) => {
                     resolve({ status: true })
                 })

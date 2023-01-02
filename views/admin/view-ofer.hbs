@@ -2,6 +2,21 @@
   <div class=" row g-4">
 
     <div class="col-md-12 ">
+      {{#each coupen}}
+      <div class="card" style="width: 18rem;">
+        <div class="card-body">
+          
+          <h6 class="card-subtitle mb-2 text-muted">{{this.name}}</h6>
+          <p class="card-text">CODE:{{this.code}}</p>
+          <p class="card-text">EXP DATE:{{this.endingdate}}</p>
+          <p class="card-text">MIN AMOUNT:{{this.minAmount}}</p>
+          <p class="card-text">MAX AMOUNT:{{this.maxAmount}}</p>
+         
+        </div>
+      </div>
+      {{/each}}
+      <div><span class="text-danger">{{oferEror}}</span></div>
+     
       <!-- Button trigger modal -->
       <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
         ADD
@@ -13,47 +28,47 @@
           <div class="modal-content">
             <div class="modal-body">
               <form class="col-md-12" action="/admin/addcoupon" method="post" enctype="multipart/form-data">
-              <div class="form-group mt-3">
-                <label for="exampleInputEmail1">Name</label>
-                <input type="text" name="name" class="form-control  bg-white text-black" id="pname"
-                  aria-describedby="emailHelp" placeholder="Name">
-              </div>
-              <div class="form-group mt-3">
-                <label for="exampleInputEmail1">Code</label>
-                <input type="text" name="code" class="form-control bg-white text-black" id="about"
-                  aria-describedby="emailHelp" placeholder="Code">
+                <div class="form-group mt-3">
+                  <label for="exampleInputEmail1">Name</label>
+                  <input type="text" name="name" class="form-control  bg-white text-black" id="pname"
+                    aria-describedby="emailHelp" placeholder="Name">
+                </div>
+                <div class="form-group mt-3">
+                  <label for="exampleInputEmail1">Code</label>
+                  <input type="text" name="code" class="form-control bg-white text-black" id="about"
+                    aria-describedby="emailHelp" placeholder="Code">
 
-              </div>
+                </div>
 
 
-              <div class="form-group mt-3">
-                <label for="exampleInputEmail1">Value</label>
-                <input type="number" name="value" class="form-control bg-white text-black" id="newPrice"
-                  aria-describedby="emailHelp" placeholder="Value" >
-              </div>
-              <div class="form-group mt-3">
-                <label for="exampleInputEmail1">Max Amount</label>
-                <input type="number" name="maxAmount" class="form-control bg-white text-black" id="oldPrice"
-                  aria-describedby="emailHelp" placeholder="Max Amount" >
-                
-              </div>
-              <div class="form-group mt-3">
-                <label for="exampleInputEmail1">Min Amount</label>
-                <input type="number" name="minAmount" class="form-control  bg-white text-black" id="offer"
-                  aria-describedby="emailHelp" placeholder="Min Amount">
-              </div>
-              <div class="form-group mt-3">
-                <label for="exampleInputEmail1">Exp Date</label>
-                <input type="date" name="endingdate" class="form-control bg-white text-black" id="stock"
-                  aria-describedby="emailHelp" placeholder="Stock count">
-              </div>
+                <div class="form-group mt-3">
+                  <label for="exampleInputEmail1">Value</label>
+                  <input type="number" name="value" class="form-control bg-white text-black" id="newPrice"
+                    aria-describedby="emailHelp" placeholder="Value">
+                </div>
+                <div class="form-group mt-3">
+                  <label for="exampleInputEmail1">Max Amount</label>
+                  <input type="number" name="maxAmount" class="form-control bg-white text-black" id="oldPrice"
+                    aria-describedby="emailHelp" placeholder="Max Amount">
 
-              <button type="submit" class="btn btn-primary mt-3">Submit</button>
-            </form>
+                </div>
+                <div class="form-group mt-3">
+                  <label for="exampleInputEmail1">Min Amount</label>
+                  <input type="number" name="minAmount" class="form-control  bg-white text-black" id="offer"
+                    aria-describedby="emailHelp" placeholder="Min Amount">
+                </div>
+                <div class="form-group mt-3">
+                  <label for="exampleInputEmail1">Exp Date</label>
+                  <input type="date" name="endingdate" class="form-control bg-white text-black" id="stock"
+                    aria-describedby="emailHelp" placeholder="Stock count">
+                </div>
+
+                <button type="submit" class="btn btn-primary mt-3">Submit</button>
+              </form>
 
 
             </div>
-            
+
 
 
             <div class="modal-footer">
