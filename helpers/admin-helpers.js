@@ -37,9 +37,24 @@ module.exports = {
                     status: 'canceled'
                 }
             })
-            resolve()
+            let response={}
+            response.change=true
+            resolve(response)
         })
 
+    },
+    refund:(orderId)=>{
+        return new Promise(async(resolve,reject)=>{
+            let orderDetails=await db.get().collection(collection.ORDER_COLLECTION).findOne({_id:objectId(orderId)})
+            userId=orderDetails.userId
+            if(orderDetails.paymentMethod==="ONLINE" || orderDetails.paymentMethod==="PAYPAL" ){
+                await db.get().collection(collection.USER_COLLECTION).updateOne({_id:objectId(userId)},{$inc:{wallet:orderDetails.totalAmount}})
+            resolve()
+
+            }
+
+            
+        })
     },
     shipedOrder: (orderId) => {
         return new Promise(async (resolve, reject) => {

@@ -1,5 +1,6 @@
 var productHelper=require('../helpers/product-helpers')
 var adminHelper=require('../helpers/admin-helpers')
+// var userHelpers = require('../helpers/user-helpers')
 
 const adminEmail = 'shinto@gmail.com'
 const adminPassword = '123'
@@ -193,7 +194,14 @@ module.exports = {
         },
         cancellorderGet:(req,res)=>{
             adminHelper.cancellOrder(req.query.id).then((response)=>{
-                res.redirect('/admin/orders')
+                if(response.change){
+                   
+                    adminHelper.refund(req.query.id).then((response)=>{
+                        res.redirect('/admin/orders')
+
+                    })
+                }
+                
             })
 
         },
@@ -225,7 +233,12 @@ module.exports = {
             
            res.redirect('/admin/ofers')
         })
-    }
+    },
+    logoutGet:(req,res)=>{
+        req.session.admin=null
+        req.session.logIn = false;
+        res.redirect('/admin')
+      }
 
 
 

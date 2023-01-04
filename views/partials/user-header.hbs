@@ -61,6 +61,7 @@
 					<div class="header-ctn">
 						<!-- Wishlist -->
 						<div>
+							{{#if logIn}}
 
 							<a href="#" data-toggle="modal" data-target="#exampleModal">
 								<a href="/profile">
@@ -69,6 +70,13 @@
 								</a>
 								{{!-- <div class="qty">2</div> --}}
 							</a>
+							{{else}}
+							<a href="/login">
+								<i class="fa fa-user-circle-o"></i>
+								<span>Profile</span>
+
+							</a>
+							{{/if}}
 						</div>
 						<!-- /Wishlist -->
 						<div class="dropdown">
@@ -86,7 +94,7 @@
 									<div class="qty">0</div>
 								</a>
 								{{/if}}
-								
+
 							</a>
 
 						</div>
@@ -112,13 +120,13 @@
 									<div class="qty">0</div>
 								</a>
 								{{/if}}
-								
+
 							</a>
 
 						</div>
-						
-						
-						
+
+
+
 						<!-- /Cart -->
 
 						<!-- Menu Toogle -->

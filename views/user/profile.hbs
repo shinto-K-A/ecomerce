@@ -20,7 +20,7 @@
             <div>
                 <span style="font-weight:bold;font-size:medium">Phone: </span><span>{{logIn.phoneNumber}}</span>
             </div>
-             <div class="section-title text-center">
+            <div class="section-title text-center">
                 <a href="/reset-password" class="btn btn-primary ">Reset Password</a>
                 <a href="/orders" class="btn btn-primary ">Orders</a>
                 <a href="/offers" class="btn btn-primary ">Offers</a>
@@ -66,11 +66,24 @@
                 </button>
 
 
+
+
+
+                <div class="card text-white bg-info mb-3" style="max-width: 18rem;">
+                    <div class="card-header"></div>
+                    <div class="card-body">
+                        <h5 class="card-title">WALLET</h5>
+                        <p class="card-text">Total Amount:{{logIn.wallet}}</p>
+                    </div>
+                </div>
+
+
+
             </div>
 
             {{!-- <br> --}}
 
-           
+
 
         </class>
         <!-- Modal Button End-->

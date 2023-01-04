@@ -381,13 +381,26 @@ module.exports = {
     },
     cancellorderedproductGet: (req, res) => {
         userHelpers.cancellOrder(req.query.id).then((response) => {
-            res.redirect('/orders')
+            if(response.change){
+                console.log('enteredddddddddddddddddddd');
+                userHelpers.refund(req.query.id).then((response)=>{
+                    res.redirect('/orders')
+
+                })
+            }
+           
         })
 
     },
     returnorderedproductGet: (req, res) => {
         userHelpers.returnOrder(req.query.id).then((response) => {
-            res.redirect('/orders')
+            if(response.change){
+                console.log('enteredddddddddddddddddddd');
+                userHelpers.refund(req.query.id).then((response)=>{
+                    res.redirect('/orders')
+
+                })
+            }
         })
 
     },
