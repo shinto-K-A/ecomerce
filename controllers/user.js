@@ -222,6 +222,9 @@ module.exports = {
         }
         
         userHelpers.placeOrder(req.body, products, totalPrice).then((orderId) => {
+            
+            req.session.orderId=orderId.insertedId
+            console.log(req.session.orderId,'jjjjjjjjjkllllllllllllll');
             if (req.body['paymentMethod'] == 'COD') {
                 res.json({ codSuccess: true })
             }
@@ -275,10 +278,13 @@ module.exports = {
     },
     successGet: async (req, res) => {
         logIn = await req.session.user
+        orderId= req.session.orderId
+        orderDetail=await userHelpers.getSingleOrder(orderId)
+        console.log(orderDetail,'ppppppppppoooooooooooolllllllllllll');
         cartCount = await userHelpers.getCartCount(req.session.user._id)
         wishCount = await userHelpers.getWishCount(req.session.user._id)
 
-        res.render('user/success', { logIn, cartCount,wishCount })
+        res.render('user/success', { logIn, cartCount,wishCount,orderDetail })
     },
     forgotpasswordGet: (req, res) => {
         res.render('user/forgot-password', { layout: null })
@@ -430,20 +436,24 @@ module.exports = {
         } else {
             let couponResponse = await userHelpers.applyCoupon(req.body, user, date, totalAmount)
             if (couponResponse.verify) {
-                console.log('ttttttttttttttttttttttttttttttttttt');
+                // console.log('ttttttttttttttttttttttttttttttttttt');
+                couponResponse.originalPrice=totalAmount
                 let discountAmount = (totalAmount * parseInt(couponResponse.couponData.value)) / 100
                 if (discountAmount > parseInt(couponResponse.couponData.maxAmount))
                     discountAmount = parseInt(couponResponse.couponData.maxAmount)
                 let amount = totalAmount - discountAmount
                 couponResponse.discountAmount = Math.round(discountAmount)
                 couponResponse.amount = Math.round(amount)
+                console.log(couponResponse.amount,'kkkkkkkkkkkkqqqqqqqqqqqqqq');
                 req.session.amount=Math.round(amount)
+                couponResponse.savedAmount=totalAmount-Math.round(amount)
                 res.json(couponResponse)
             } else {
                 couponResponse.Total = totalAmount
+                console.log(couponResponse,'qqqqqqqqqqqqqaaaaaaaaaaaaaaaaaa');
 
 
-                res.json({error:true})
+                res.json(couponResponse)
             }
         }
     },

@@ -320,7 +320,7 @@ module.exports = {
             }
             db.get().collection(collection.ORDER_COLLECTION).insertOne(orderObj).then((response) => {
                 db.get().collection(collection.CART_COLLECTION).deleteOne({ user: objectId(order.userId) })
-                resolve(response.insertedId)
+                resolve(response)
             })
 
         })
@@ -813,6 +813,15 @@ module.exports = {
         })
 
     },
+    getSingleOrder:(orderId)=>{
+        return new Promise((resolve,reject)=>{
+            db.get().collection(collection.ORDER_COLLECTION).findOne({_id:objectId(orderId)}).then((response)=>{
+                resolve(response)
+
+            })
+            
+        })
+    }
     
 
 
