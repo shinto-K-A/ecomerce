@@ -4,7 +4,12 @@ var adminHelper=require('../helpers/admin-helpers')
 
 const adminEmail = 'shinto@gmail.com'
 const adminPassword = '123'
+
+  
+  
+  
 module.exports = {
+    
     
     home: async function (req, res, next) {
         res.header("Cache-Control", "no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0")
@@ -57,16 +62,14 @@ module.exports = {
             res.render('admin/add-product', { layout: 'admin-layout', response })
         })
     },
-    addproductPost: (req, res) => {
-        productHelper.addProduct(req.body, (id) => {
-            let image = req.files.image
-            image.mv('./public/product-images/' + id + '.jpg', (err, done) => {
-                if (!err) {
-                    res.redirect('/admin/add-product')
-                }
-                else console.log(`error due to ${err}`)
-            })
-        })
+    addproductPost:(req, res) => {
+        req.body.image = req.files.image[0].filename
+        req.body.image1 = req.files.image1[0].filename
+        req.body.image2= req.files.image2[0].filename
+        req.body.image3 = req.files.image3[0].filename
+        productHelper.addProduct(req.body)
+        res.redirect('/admin/view')
+               
     },
     deleteproductGet: (req, res) => {
         let userID = req.params.id
@@ -80,15 +83,37 @@ module.exports = {
         console.log(product);
         res.render('admin/edit-product', { layout: 'admin-layout', product });
     },
-    editproductPost: (req, res) => {
+    editproductPost: async(req, res) => {
+        let editid = req.params.id
+        if (req.files.image == null) {
+            Image1 = await productHelper.fetchImage1(editid)
+        } else {
+            Image1 = req.files.image[0].filename
+        }
+        if (req.files.image1 == null) {
+            Image2 = await productHelper.fetchImage2(editid)
+        } else {
+            Image2 = req.files.image1[0].filename
+        }
+        if (req.files.image2 == null) {
+            Image3 = await productHelper.fetchImage3(editid)
+        } else {
+            Image3 = req.files.image2[0].filename
+        }
+        if (req.files.image3 == null) {
+            Image4 = await productHelper.fetchImage4(editid)
+        } else {
+            Image4 = req.files.image3[0].filename
+        }
+        req.body.image = Image1
+        req.body.image1 = Image2
+        req.body.image2 = Image3
+        req.body.image3 = Image4
         productHelper.updateProduct(req.params.id, req.body).then(() => {
             console.log(req.params.id);
             let id = req.params.id
             res.redirect('/admin/view')
-            if (req.files?.image) {
-                let image = req.files.image
-                image.mv('./public/product-images/' + id + '.jpg')
-            }
+            
         })
     },
     categoryGet:(req,res)=>{

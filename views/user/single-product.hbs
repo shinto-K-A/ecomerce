@@ -24,50 +24,48 @@
 			<!-- row -->
 			<div class="row">
 				<!-- Product main img -->
-				<div class="col-md-5 col-md-push-2" id="img-container">
-					<div id="product-main-img">
-						<div>
+					<div class="col-md-5 col-md-push-2">
+						<div id="product-main-img" >
 							<div class="product-preview">
-								<img src="/product-images/{{response._id}}.jpg" alt="">
+								<img src="/product-images/{{response.image}}" alt="">
 							</div>
 
-							<!--<div class="product-preview">
-														<img src="media/img/product03.png" alt="">
-													</div>
-						
-													<div class="product-preview">
-														<img src="./img/product06.png" alt="">
-													</div>
-						
-													<div class="product-preview">
-														<img src="./img/product08.png" alt="">
-													</div>-->
+							<div class="product-preview">
+								<img src="/product-images/{{response.image1}}" alt="">
+							</div>
+
+							<div class="product-preview">
+								<img src="/product-images/{{response.image2}}" alt="">
+							</div>
+
+							<div class="product-preview">
+								<img src="/product-images/{{response.image3}}" alt="">
+							</div>
 						</div>
 					</div>
-				</div>
-				<!-- /Product main img -->
+					<!-- /Product main img -->
 
-				<!-- Product thumb imgs -->
-				<div class="col-md-2  col-md-pull-5">
-					<div id="product-imgs">
-						<div class="product-preview">
-							<img src="./img/product01.png" alt="">
-						</div>
+					<!-- Product thumb imgs -->
+					<div class="col-md-2  col-md-pull-5">
+						<div id="product-imgs">
+							<div class="product-preview">
+								<img src="/product-images/{{response.image}}" alt="">
+							</div>
 
-						<div class="product-preview">
-							<img src="./img/product03.png" alt="">
-						</div>
+							<div class="product-preview">
+								<img src="/product-images/{{response.image1}}" alt="">
+							</div>
 
-						<div class="product-preview">
-							<img src="./img/product06.png" alt="">
-						</div>
+							<div class="product-preview">
+								<img src="/product-images/{{response.image2}}" alt="">
+							</div>
 
-						<div class="product-preview">
-							<img src="./img/product08.png" alt="">
+							<div class="product-preview">
+								<img src="/product-images/{{response.image3}}" alt="">
+							</div>
 						</div>
 					</div>
-				</div>
-				<!-- /Product thumb imgs -->
+					<!-- /Product thumb imgs -->
 
 				<!-- Product details -->
 				<div class="col-md-5">
@@ -86,7 +84,7 @@
 						<div>
 							<h3 class="product-price">${{response.newprice}}.00 <del
 									class="product-old-price">${{response.oldprice}}.00</del></h3>
-							<span class="product-available">In Stock</span>
+							{{!-- <span class="product-available">In Stock</span> --}}
 						</div>
 						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
 							incididunt ut
@@ -658,7 +656,7 @@
 			}
 
 		};
-		new ImageZoom(document.getElementById("img-container"), options);
+		new ImageZoom(document.getElementById("product-main-img"), options);
 	</script>
 	<script>
 		function addToCart(proId) {
@@ -676,7 +674,7 @@
 			})
 
 		}
-		
+
 	</script>
 
 </body>

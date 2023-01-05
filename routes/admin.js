@@ -5,7 +5,16 @@ const {home,postLogin,viewProduct,addproductGet,addproductPost,deleteproductGet,
     categoryGet,categoryPost,deletecategoryGet,editcategoryGet,editcategoryPost,stockGet,editstockGet
     ,bannerGet,editstockPost,editbannerPost,editbannerGet,orderGet,cancellorderGet,shipedorderGet,deliverorderGet,offerGet,addcouponPost,logoutGet}=require('../controllers/admin')
 
-
+    const multer=require('multer')
+    const multerStorage = multer.diskStorage({
+        destination: function (req, file, cb) {
+          cb(null, "./public/product-images");
+        },
+        filename: function (req, file, cb) {
+          cb(null, Date.now() + '-' + file.originalname)
+        }
+      })
+      const uploadMultiple = multer({ storage: multerStorage }).fields([{ name: 'image', maxCount: 1 }, { name: 'image1', maxCount: 1 }, { name: 'image2', maxCount: 1 }, { name: 'image3', maxCount: 1 }])
 /*GET login*/
 router.get('/', home)
 /*POST login*/
@@ -15,13 +24,13 @@ router.get('/view',viewProduct)
 /*GET add-product*/
 router.get('/add-product',addproductGet)
 /*POST add-product*/
-router.post('/add-product',addproductPost)
+router.post('/add-product',uploadMultiple,addproductPost)
 /*GET delete-product*/
 router.get('/delete-product/:id',deleteproductGet)
 /*GET edit-product*/
 router.get('/edit-product/',editproductGet)
 /*POST edit-product*/
-router.post('/edit-product/:id',editproductPost)
+router.post('/edit-product/:id',uploadMultiple,editproductPost)
 /*----USER----*/
 router.get('/view-users',userView)
 /*GET block-user*/

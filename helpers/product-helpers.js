@@ -3,14 +3,18 @@ var collection=require('../config/collections')
 const { response } = require('express')
 var objectId = require('mongodb').ObjectId
 module.exports={
-    addProduct:(product,callback)=>{
-        db.get().collection('product').insertOne(product).then((data)=>{
-            console.log(data)
-            callback(data.insertedId)
+    addProduct:(details)=>{
+        return new Promise(async(resolve,reject)=>{
+            db.get().collection(collection.PRODUCT_COLLECTION).insertOne(details)
+            resolve()
+
+        })
+        
+            //callback(data.insertedId)
 
             //callback(data.ops[0]._id)
 
-        })
+        
     },
     getAllproducts:()=>{
         return new Promise(async(resolve,reject)=>{
@@ -75,7 +79,11 @@ module.exports={
                     about: productDetails.about,
                     newprice: productDetails.newprice,
                     oldrice: productDetails.oldprice,
-                    percentage: productDetails.percentage
+                    percentage: productDetails.percentage,
+                    image: productDetails.image,
+                    image1: productDetails.image1,
+                    image2: productDetails.image2,
+                    image3: productDetails.image3
                 }
             }).then((response) => {
                 resolve()
@@ -187,6 +195,35 @@ module.exports={
                 let response=await db.get().collection(collection.ORDER_COLLECTION).find({userId:objectId(userid)}).toArray()
                      resolve(response)
             })
+            
+        },
+        fetchImage1: (proID) => {
+            console.log(proID,'hi img 1');
+            return new Promise(async (resolve, reject) => {
+                let detail = await db.get().collection(collection.PRODUCT_COLLECTION).findOne({ _id: objectId(proID) }, { projection: { image: true } })
+                resolve(detail.image)
+            })
+        },
+        fetchImage2: (proID) => {
+            return new Promise(async (resolve, reject) => {
+                let detail = await db.get().collection(collection.PRODUCT_COLLECTION).findOne({ _id: objectId(proID) }, { projection: { image1: true } })
+                resolve(detail.image1)
+            })
+        },
+        fetchImage3: (proID) => {
+            return new Promise(async (resolve, reject) => {
+                let detail = await db.get().collection(collection.PRODUCT_COLLECTION).findOne({ _id: objectId(proID) }, { projection: { image2: true } })
+                resolve(detail.image2)
+            })
+        },
+        fetchImage4: (proID) => {
+            return new Promise(async (resolve, reject) => {
+                let detail = await db.get().collection(collection.PRODUCT_COLLECTION).findOne({ _id: objectId(proID) }, { projection: { image3: true } })
+                resolve(detail.image3)
+            })
+            
+            
+            
             
         },
 

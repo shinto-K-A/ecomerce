@@ -28,6 +28,10 @@ module.exports = {
             cartCount = await userHelpers.getCartCount(req.session.user._id)
             wishCount = await userHelpers.getWishCount(req.session.user._id)
         }
+        else{
+            cartCount=0
+            wishCount=0
+        }
         productHelpers.getLaptops().then((products) => {
             res.render('user/view-lap', { products, logIn, cartCount,wishCount })
         })
@@ -35,9 +39,14 @@ module.exports = {
     viewAcessory: async (req, res) => {
         // let cartCount = null
         // let wishCount = null
+        logIn = req.session.user
         if (logIn) {
             cartCount = await userHelpers.getCartCount(req.session.user._id)
             wishCount = await userHelpers.getWishCount(req.session.user._id)
+        }
+        else{
+            cartCount=0
+            wishCount=0
         }
         logIn = req.session.user
         productHelpers.getAcesory().then((products) => {
@@ -52,6 +61,10 @@ module.exports = {
         if (logIn) {
             cartCount = await userHelpers.getCartCount(req.session.user._id)
             wishCount = await userHelpers.getWishCount(req.session.user._id)
+        }
+        else{
+            cartCount=0
+            wishCount=0
         }
         productHelpers.getCamera().then((products) => {
             res.render('user/view-accesory', { products, logIn, cartCount,wishCount })
