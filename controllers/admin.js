@@ -1,6 +1,6 @@
 var productHelper = require('../helpers/product-helpers')
 var adminHelper = require('../helpers/admin-helpers')
-// var userHelpers = require('../helpers/user-helpers')
+var userHelpers = require('../helpers/user-helpers')
 
 const adminEmail = 'shinto@gmail.com'
 const adminPassword = '123'
@@ -255,10 +255,14 @@ module.exports = {
         })
 
     },
+    addcouponGet:(req,res)=>{
+        res.render('admin/add-coupon',{layout:'admin-layout'})
+
+    },
     addcouponPost: (req, res) => {
-        adminHelper.
-            addCoupon(req.body).then((response) => {
-                if (response.message) {
+        console.log(req.body,'formmmmmmmmmmmm dataaaaaaaaa');
+        adminHelper.addCoupon(req.body).then((response) => {
+                if (response.status) {
                     req.session.Eror = response.message
                 }
 
@@ -306,7 +310,17 @@ module.exports = {
             })
 
         }
-    }
+    },
+    vieworderedproductGet: async (req, res) => {
+
+        await userHelpers.getOrderProducts(req.query.id).then((products) => {
+            console.log(products, 'uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu');
+            res.render('admin/view-ordered-product', { layout:'admin-layout',products })
+
+        })
+
+
+    },
     
 
 

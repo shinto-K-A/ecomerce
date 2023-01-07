@@ -342,7 +342,8 @@ module.exports = {
         cartCount = await userHelpers.getCartCount(req.session.user._id)
         adress = await userHelpers.AllAddress(req.session.user._id)
         wishCount = await userHelpers.getWishCount(req.session.user._id)
-        res.render('user/profile', { logIn, cartCount, adress,wishCount })
+        UserWallet= await userHelpers.findUser(req.session.user._id)
+        res.render('user/profile', { logIn, cartCount, adress,wishCount,UserWallet })
     },
     profilePost: (req, res) => {
         user = req.session.user

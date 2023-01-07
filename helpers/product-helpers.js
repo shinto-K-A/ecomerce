@@ -228,7 +228,7 @@ module.exports={
         fetchImageOne: (proID) => {
             console.log(proID,'hi img 1');
             return new Promise(async (resolve, reject) => {
-                let detail = await db.get().collection(collection.BANNER_COLLECTION).findOne({ _id: objectId(proID) }, { projection: { image: true } })
+                let detail = await db.get().collection(collection.BANNER_COLLECTION).findOne({ _id: objectId(proID) }, { projection: { banner: true } })
                 resolve(detail.banner)
             })
         },

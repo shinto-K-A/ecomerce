@@ -821,6 +821,13 @@ module.exports = {
             })
             
         })
+    },
+    findUser:(userId)=>{
+        return new Promise((resolve,reject)=>{
+            db.get().collection(collection.USER_COLLECTION).findOne({_id:objectId(userId)}).then((response)=>{
+                resolve(response)
+            })
+        })
     }
     
 
