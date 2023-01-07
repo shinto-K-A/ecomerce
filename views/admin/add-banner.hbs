@@ -2,15 +2,13 @@
     <div class=" row g-4">
 
         <div class="col-sm-12 ">
-            <form class="col-md-6" action="/admin/edit-banner?id={{baners._id}}" method="post" enctype="multipart/form-data">
+            <form class="col-md-6" action="/admin/add-banner" method="post" enctype="multipart/form-data">
 
                 <div class="form-group mt-3">
                     <label for="exampleInputEmail1">Offer Percentage</label>
                     <input type="number" name="percentage" class="form-control p-3 mb-2 text-white"
-                        id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Offer Percentage"
-                        value="{{baners.percentage}}">
+                        id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Offer Percentage">
                 </div>
-                <img src="/product-images/{{baners.banner}}" style="width: 100px; height:auto" id="imgView">
                 <div class="form-group mt-3">
                     <label for="exampleFormControlFile1">Example file input</label>
                     <input type="file" name="banner" class="form-control-file" id="exampleFormControlFile1"

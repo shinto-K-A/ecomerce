@@ -7,13 +7,13 @@
                 <label for="exampleInputEmail1">Product Name</label>
                 <input type="text" name="product" class="form-control  bg-white text-black" id="pname"
                     aria-describedby="emailHelp" placeholder="Product name" onkeypress="nameCheck()">
-                    <span id="nerror" style="color: rgb(213, 10, 10);"></span>
+                <span id="nerror" style="color: rgb(213, 10, 10);"></span>
             </div>
             <div class="form-group mt-3">
                 <label for="exampleInputEmail1">About</label>
                 <input type="text" name="about" class="form-control bg-white text-black" id="about"
                     aria-describedby="emailHelp" placeholder="About" onkeypress="aboutCheck()">
-                    <span id="aerror" style="color: rgb(213, 10, 10);"></span>
+                <span id="aerror" style="color: rgb(213, 10, 10);"></span>
             </div>
 
             {{!-- category input --}}
@@ -37,7 +37,7 @@
                 <label for="exampleInputEmail1">New Price</label>
                 <input type="number" name="newprice" class="form-control bg-white text-black" id="newPrice"
                     aria-describedby="emailHelp" placeholder="New Price" onkeypress="newpriceCheck()">
-                    <span id="perror" style="color: rgb(213, 10, 10);"></span>
+                <span id="perror" style="color: rgb(213, 10, 10);"></span>
             </div>
             <div class="form-group mt-3">
                 <label for="exampleInputEmail1">Old Price</label>
@@ -48,21 +48,22 @@
             <div class="form-group mt-3">
                 <label for="exampleInputEmail1">Offer Percentage</label>
                 <input type="number" name="percentage" class="form-control  bg-white text-black" id="offer"
-                    aria-describedby="emailHelp" placeholder="Offer Percentage" onkeypress="offerCheck()">
-                     <span id="oerror" style="color: rgb(213, 10, 10);"></span>
+                    aria-describedby="emailHelp" placeholder="Offer Percentage" onkeypress="offerCheck()"><button
+                    type="button" class="btn btn-info" onclick="Percentage()">Fill</button>
+                <span id="oerror" style="color: rgb(213, 10, 10);"></span>
             </div>
             <div class="form-group mt-3">
                 <label for="exampleInputEmail1">Stock Count</label>
                 <input type="number" name="stock" class="form-control bg-white text-black" id="stock"
                     aria-describedby="emailHelp" placeholder="Stock count" onkeypress="stockCheck()">
-                    <span id="serror" style="color: rgb(213, 10, 10);"></span>
+                <span id="serror" style="color: rgb(213, 10, 10);"></span>
             </div>
             <div class="form-group mt-3">
                 <label for="exampleFormControlFile1">Example file input</label>
                 <input type="file" name="image" class="form-control-file" id="exampleFormControlFile1">
-                <span id="form-error" style="color: rgb(10, 236, 52);"></span>
+                
             </div>
-            
+
             <div class="form-group mt-3">
                 <label for="exampleFormControlFile1">Example file input</label>
                 <input type="file" name="image1" class="form-control-file" id="exampleFormControlFile1">
@@ -71,19 +72,37 @@
                 <label for="exampleFormControlFile1">Example file input</label>
                 <input type="file" name="image2" class="form-control-file" id="exampleFormControlFile1">
             </div>
-            
+
             <div class="form-group mt-3">
                 <label for="exampleFormControlFile1">Example file input</label>
-                <input type="file" name="image3" class="form-control-file" id="exampleFormControlFile1" onchange="viewImage(event)">
+                <input type="file" name="image3" class="form-control-file" id="exampleFormControlFile1"
+                    onchange="viewImage(event)">
+                    
             </div>
+            <div>
+                 <span id="form-error" style="color: rgb(10, 236, 52);"></span>
+            </div>
+           
             <button type="submit" class="btn btn-primary mt-3" onclick="return validateProducts()">Submit</button>
         </form>
 
     </div>
     <script>
+        function Percentage() {
+            oldPrice=document.getElementById('oldPrice').value;
+            newPrice=document.getElementById('newPrice').value;
+            offerPrice=(newPrice-oldPrice)/oldPrice*100
+            
+            exactPrice=Math.abs(offerPrice)
+        
+            finalOffer=Math.round(exactPrice)
+            
+            document.getElementById('offer').value=finalOffer
+        }
+
         function priceCheck() {
             console.log('hellolllllllllllllllllllllllllllllllllllllllllllll');
-            var priceError=document.getElementById("price-error")
+            var priceError = document.getElementById("price-error")
             var price1 = document.getElementById("newPrice").value;
             var price2 = document.getElementById("oldPrice").value;
             if (price1 > price2) {
@@ -162,19 +181,19 @@
             }
         }
         function validateProducts() {
-             var submitError=document.getElementById("form-error")
-    if (!stockCheck() || !offerCheck() || !newpriceCheck() || !aboutCheck()  ||!nameCheck()  ||!priceCheck()) {
+            var submitError = document.getElementById("form-error")
+            if (!stockCheck() || !offerCheck() || !newpriceCheck() || !aboutCheck() || !nameCheck() || !priceCheck()) {
 
-        submitError.innerHTML = 'Please fill the fields to submit';
-        //setTimeout(function () { submitError.style.display = 'none'; }, 4000)
-        return false;
-    }
-    else{
-        submitError.innerHTML = '';
-    }
+                submitError.innerHTML = 'Please fill the fields to submit';
+                //setTimeout(function () { submitError.style.display = 'none'; }, 4000)
+                return false;
+            }
+            else {
+                submitError.innerHTML = '';
+            }
 
-}
-
+        }
+        
 
     </script>
 

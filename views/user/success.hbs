@@ -10,7 +10,7 @@
 		<div class="container" style="padding-top: 100PX;">
 			
 			<div class="row order_d_inner">
-				<div class="col-lg-4">
+				<div class="col-lg-6">
 					<div class="details_item">
 						<h4>Order Info</h4>
 						<ul class="list">
@@ -21,28 +21,18 @@
 						</ul>
 					</div>
 				</div>
-				<div class="col-lg-4">
-					<div class="details_item">
-						<h4>Billing Address</h4>
-						<ul class="list">
-							<li><a href="#"><span>Town</span> : {{orderDetail.deliveryDetails.town}}</a></li>
-							<li><a href="#"><span>City</span> : {{orderDetail.deliveryDetails.city}}</a></li>
-							<li><a href="#"><span>Country</span> : {{orderDetail.deliveryDetails.country}}</a></li>
-							<li><a href="#"><span>Postcode </span> : {{orderDetail.deliveryDetails.zip}}</a></li>
-						</ul>
-					</div>
-				</div>
-				<div class="col-lg-4">
+				<div class="col-lg-6">
 					<div class="details_item">
 						<h4>Shipping Address</h4>
 						<ul class="list">
-							<li><a href="#"><span>Town</span> : {{orderDetail.deliveryDetails.town}}</a></li>
+							<li><a href="#"><span>Town</span> : {{orderDetail.deliveryDetails.place}}</a></li>
 							<li><a href="#"><span>City</span> : {{orderDetail.deliveryDetails.city}}</a></li>
-							<li><a href="#"><span>Country</span> : {{orderDetail.deliveryDetails.country}}</a></li>
-							<li><a href="#"><span>Postcode </span> : {{orderDetail.deliveryDetails.zip}}</a></li>
+							<li><a href="#"><span>Postoffice</span> : {{orderDetail.deliveryDetails.postoffice}}</a></li>
+							<li><a href="#"><span>Postcode </span> : {{orderDetail.deliveryDetails.pincode}}</a></li>
 						</ul>
 					</div>
 				</div>
+				
 			</div>
 			<a href="/myorder"><button class="btn btn-primary">Go to My Orders</button></a>
 			<div class="order_details_table">

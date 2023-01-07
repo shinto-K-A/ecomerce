@@ -24,7 +24,7 @@
 			<!-- row -->
 			<div class="row">
 				<!-- Product main img -->
-					<div class="col-md-5 col-md-push-2">
+					<div class="col-md-5 col-md-push-2" id="image-containr">
 						<div id="product-main-img" >
 							<div class="product-preview">
 								<img src="/product-images/{{response.image}}" alt="">
@@ -652,11 +652,11 @@
 			scale: 0.7,
 			offset: {
 				vertical: 70,
-				horizontal: -900
+				horizontal: -1000
 			}
 
 		};
-		new ImageZoom(document.getElementById("product-main-img"), options);
+		new ImageZoom(document.getElementById("image-containr"), options);
 	</script>
 	<script>
 		function addToCart(proId) {

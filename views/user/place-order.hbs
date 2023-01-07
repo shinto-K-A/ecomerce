@@ -297,11 +297,24 @@
 
 						if (response.invalidDate) {
 							document.getElementById('errorMsg').innerHTML = response.invalidDateMsg
+							setTimeout(()=>{
+								response.invalidDateMsg=null
+								//location.reload()
+							},3000)
 						}
 						else if (response.minAmount) {
 							document.getElementById('errorMsg').innerHTML = response.minAmountMsg
+							setTimeout(()=>{
+								response.minAmountMsg=null
+								location.reload()
+							},3000)
 						}
-						else if (response.invalidCoupon) { document.getElementById('errorMsg').innerHTML = response.invalidCouponMsg }
+						else if (response.invalidCoupon) { 
+							document.getElementById('errorMsg').innerHTML = response.invalidCouponMsg
+							setTimeout(()=>{
+								response.invalidCouponMsg=null
+								location.reload()
+							},3000) }
 
 
 					}

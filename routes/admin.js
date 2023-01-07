@@ -3,7 +3,8 @@ var router = express.Router();
 var productHelper=require('../helpers/product-helpers')
 const {home,postLogin,viewProduct,addproductGet,addproductPost,deleteproductGet,editproductGet,editproductPost,userView,blockuserGet,unblockuserGet,
     categoryGet,categoryPost,deletecategoryGet,editcategoryGet,editcategoryPost,stockGet,editstockGet
-    ,bannerGet,editstockPost,editbannerPost,editbannerGet,orderGet,cancellorderGet,shipedorderGet,deliverorderGet,offerGet,addcouponPost,logoutGet}=require('../controllers/admin')
+    ,bannerGet,editstockPost,editbannerPost,editbannerGet,orderGet,cancellorderGet,shipedorderGet,deliverorderGet,offerGet,addcouponPost,logoutGet
+    ,addbannerGet,addbannerPost,deleteBannerGet,blockbannerGet,unblockbannerGet}=require('../controllers/admin')
 
     const multer=require('multer')
     const multerStorage = multer.diskStorage({
@@ -15,6 +16,7 @@ const {home,postLogin,viewProduct,addproductGet,addproductPost,deleteproductGet,
         }
       })
       const uploadMultiple = multer({ storage: multerStorage }).fields([{ name: 'image', maxCount: 1 }, { name: 'image1', maxCount: 1 }, { name: 'image2', maxCount: 1 }, { name: 'image3', maxCount: 1 }])
+      const uploadSingle = multer({ storage: multerStorage }).fields([{ name: 'banner', maxCount: 1 }])
 /*GET login*/
 router.get('/', home)
 /*POST login*/
@@ -58,7 +60,7 @@ router.get('/banner',bannerGet)
 /*GET edit-banner*/
 router.get('/edit-banner',editbannerGet)
 /*POST banner*/
-router.post('/edit-banner',editbannerPost)
+router.post('/edit-banner',uploadSingle,editbannerPost)
 /*GET orders*/
 router.get('/orders',orderGet)
 /*GET cancel-order*/
@@ -73,5 +75,15 @@ router.get('/ofers',offerGet)
 router.post('/addcoupon',addcouponPost)
 /*GET logout*/
 router.get('/logout',logoutGet)
+/*GET add-banner*/
+router.get('/add-banner',addbannerGet)
+/*POST add-banner */
+router.post('/add-banner',uploadSingle,addbannerPost)
+/*GET delete-banner*/
+router.get('/delete-banner',deleteBannerGet)
+/*GET block-banner*/
+router.get('/block-banner',blockbannerGet)
+/*GET unblock-banner*/
+router.get('/unblock-banner',unblockbannerGet)
 
 module.exports = router;

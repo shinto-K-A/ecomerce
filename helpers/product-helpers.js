@@ -1,6 +1,7 @@
 var db=require('../config/connection')
 var collection=require('../config/collections')
 const { response } = require('express')
+const { ObjectId } = require('mongodb')
 var objectId = require('mongodb').ObjectId
 module.exports={
     addProduct:(details)=>{
@@ -142,16 +143,14 @@ module.exports={
             })
         })
     },
-    addBanner:(product,callback)=>{
-        db.get().collection('banner').insertOne(product).then((data)=>{
-            console.log(data)
-            callback(data.insertedId)
-
-            //callback(data.ops[0]._id)
-
-        })
-    },
     getAllBanner: () => {  
+        return new Promise(async (resolve, reject) => {   
+            let products =await db.get().collection(collection.BANNER_COLLECTION).find({status:true}).toArray()
+            resolve(products)
+        })
+
+    },
+    getAllBannerAdmin: () => {  
         return new Promise(async (resolve, reject) => {   
             let products =await db.get().collection(collection.BANNER_COLLECTION).find().toArray()
             resolve(products)
@@ -168,19 +167,19 @@ module.exports={
         })
 
 
-    },
-    updateBaner:(banerId,details)=>{
-        return new Promise((resolve, reject) => {
-            db.get().collection(collection.BANNER_COLLECTION).updateOne({ _id: objectId(banerId) }, {
-                $set: {
-                    percentage: details.percentage,
+     },
+    // updateBaner:(banerId,details)=>{
+    //     return new Promise((resolve, reject) => {
+    //         db.get().collection(collection.BANNER_COLLECTION).updateOne({ _id: objectId(banerId) }, {
+    //             $set: {
+    //                 percentage: details.percentage,
                     
-                }
-            }).then((response) => {
-                resolve()
-            })
-        })
-    },
+    //             }
+    //         }).then((response) => {
+    //             resolve()
+    //         })
+    //     })
+    // },
     getAllOrders:()=>{
         return new Promise(async (resolve,reject)=>{
            let response=await db.get().collection(collection.ORDER_COLLECTION).find().toArray()
@@ -225,6 +224,64 @@ module.exports={
             
             
             
+        },
+        fetchImageOne: (proID) => {
+            console.log(proID,'hi img 1');
+            return new Promise(async (resolve, reject) => {
+                let detail = await db.get().collection(collection.BANNER_COLLECTION).findOne({ _id: objectId(proID) }, { projection: { image: true } })
+                resolve(detail.banner)
+            })
+        },
+        addBanner:(details)=>{
+            return new Promise(async(resolve,reject)=>{
+                details.status=false
+                await db.get().collection(collection.BANNER_COLLECTION).insertOne(details)
+                resolve()
+    
+            })
+        },
+        updateBanner: (productId, productDetails) => {
+            return new Promise((resolve, reject) => {
+                db.get().collection(collection.BANNER_COLLECTION).updateOne({ _id: objectId(productId) }, {
+                    $set: {
+                        percentage: productDetails.percentage,
+                        
+                        banner: productDetails.banner,
+                        
+                    }
+                }).then((response) => {
+                    resolve()
+                })
+            })
+        },
+        deleteBanner:(banerId)=>{
+            return new Promise((resolve,reject)=>{
+                db.get().collection(collection.BANNER_COLLECTION).deleteOne({_id:objectId(banerId)}).then((response)=>{
+                    resolve()
+                })
+            })
+        },
+        blockBanner:(bannerId)=>{
+            return new Promise((resolve,reject)=>{
+                db.get().collection(collection.BANNER_COLLECTION).updateOne({_id:objectId(bannerId)},{$set:{status:false}}).then((response)=>{
+                    resolve()
+                })
+            })
+        },
+        blockFirst:()=>{
+            return new Promise((resolve,reject)=>{
+                db.get().collection(collection.BANNER_COLLECTION).updateOne({status:true},{$set:{status:false}}).then((response)=>{
+                    resolve()
+                })
+            })
+
+        },
+        unblockBanner:(bannerId)=>{
+            return new Promise((resolve,reject)=>{
+                db.get().collection(collection.BANNER_COLLECTION).updateOne({_id:objectId(bannerId)},{$set:{status:true}}).then((response)=>{
+                    resolve()
+                })
+            })
         },
 
 
